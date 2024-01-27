@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>User`s page</title>
+    <style>
+        .logout-button {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 10px 20px;
+            background-color: #f2f2f2;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<form th:action="@{/logout}" th:method="post">
+    <input class="logout-button" type="submit" value="Выйти">
+</form>
+
+
+<h2>Твои Данные</h2>
+
+<table  border="1" width="1000" align="center" bgcolor="#f0ffff">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Lastname</th>
+        <th>Age</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Password</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:object="${user}">
+        <td th:text="${user.getId()}"></td>
+        <td th:text="${user.getName()}"></td>
+        <td th:text="${user.getLastname()}"></td>
+        <td th:text="${user.getAge()}"></td>
+        <td th:text="${user.getEmail()}"></td>
+        <td th:text="${user.getRoles()}"></td>
+        <td th:text="${user.getPassword()}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin`s page all users</title>
+    <style>
+        .logout-button {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 10px 20px;
+            background-color: #f2f2f2;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<form th:action="@{/logout}" th:method="post">
+    <input class="logout-button" type="submit" value="Выйти">
+</form>
+
+
+<h2>All users</h2>
+<table border="1" width="1200" align="center" bgcolor="#f0ffff">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Lastname</th>
+        <th>Age</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Password</th>
+        <th>Edit</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="user : ${allUsers}" align="center">
+        <td th:text="${user.getId()}"></td>
+        <td th:text="${user.getName()}"></td>
+        <td th:text="${user.getLastname()}"></td>
+        <td th:text="${user.getAge()}"></td>
+        <td th:text="${user.getEmail()}"></td>
+        <td th:text="${user.getRoles()}"></td>
+        <td th:text="${user.getPassword()}"></td>
+        <td>
+            <form th:action="@{'/admin/edit/' + ${user.getId()}}" th:method="get">
+                <button type="submit">Edit</button>
+            </form>
+        </td>
+        <td>
+            <form th:action="@{'/admin/delete/' + ${user.getId()}}" th:method="post">
+                <input type="hidden" name="_method" value="delete" />
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<br>
+<div align="center">
+    <form th:action="@{/admin/new}" th:method="get">
+        <button type="submit" >Add new user</button>
+    </form>
+
+</div>
+
+</body>
+</html>
