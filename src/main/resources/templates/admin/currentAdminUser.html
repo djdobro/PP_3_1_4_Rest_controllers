@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>Userpage</title>
+    <title>Admin`s userpage</title>
 </head>
 <body>
 
@@ -14,9 +14,9 @@
     <div class="row">
         <div class="col-md-9" style="background-color: #333; height: 5vh;">
             <h3 class="text-left" style="color: white; text-align: left; line-height: 5vh;">
-                <span th:text="${user.name}" style="font-weight: bold;"></span>
+                <span th:text="${currentAdminUser.name}" style="font-weight: bold;"></span>
                 <span style="font-weight: lighter;"> with roles: </span>
-                <span style="font-weight: lighter;" th:each="role : ${user.roles}"
+                <span style="font-weight: lighter;" th:each="role : ${currentAdminUser.roles}"
                       th:text="${role.name.split('_')[1]} + ' '"></span>
             </h3>
         </div>
@@ -34,10 +34,14 @@
         <div class="col-md-2" style="background-color: white; height: 95vh; padding-top: 20px">
             <ul class="nav flex-column nav-pills">
                 <li class="nav-item">
-                    <a class="nav-link active" href="/user">User</a>
+                    <a class="nav-link" href="/admin">Admin</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/admin/currentAdminUser">User</a>
                 </li>
             </ul>
         </div>
+
         <div class="col-md-10" style="background-color: #f0f0f0; height: 95vh; padding-top: 20px">
             <h1>
                 User information-page
@@ -57,14 +61,14 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:object="${user}">
-                            <td th:text="${user.id}"></td>
-                            <td th:text="${user.name}"></td>
-                            <td th:text="${user.lastname}"></td>
-                            <td th:text="${user.age}"></td>
-                            <td th:text="${user.email}"></td>
+                        <tr th:object="${currentAdminUser}">
+                            <td th:text="${currentAdminUser.id}"></td>
+                            <td th:text="${currentAdminUser.name}"></td>
+                            <td th:text="${currentAdminUser.lastname}"></td>
+                            <td th:text="${currentAdminUser.age}"></td>
+                            <td th:text="${currentAdminUser.email}"></td>
                             <td>
-                                <span th:each="role : ${user.roles}" th:text="${role.name.split('_')[1]} + ' '"></span>
+                                <span th:each="role : ${currentAdminUser.roles}" th:text="${role.name.split('_')[1]} + ' '"></span>
                             </td>
                         </tr>
                         </tbody>
@@ -83,5 +87,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+
 </body>
 </html>
