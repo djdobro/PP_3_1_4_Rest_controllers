@@ -68,7 +68,8 @@
                             <td th:text="${currentAdminUser.age}"></td>
                             <td th:text="${currentAdminUser.email}"></td>
                             <td>
-                                <span th:each="role : ${currentAdminUser.roles}" th:text="${role.name.split('_')[1]} + ' '"></span>
+                                <span th:each="role : ${currentAdminUser.roles}"
+                                      th:text="${role.name.split('_')[1]} + ' '"></span>
                             </td>
                         </tr>
                         </tbody>

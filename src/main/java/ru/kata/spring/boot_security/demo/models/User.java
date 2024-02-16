@@ -20,28 +20,28 @@ public class User implements UserDetails {
     private Long id;
 
     @Column(unique = true)
-    @NotEmpty
+    @NotEmpty(message = "Name should not be empty!")
     private String name;
 
     @Column
-    @NotEmpty
+    @NotEmpty(message = "Lastname should not be empty!")
     private String lastname;
 
     @Column
-    @Min(value = 1)
-    @Max(value = 123)
+    @Min(value = 1, message = "Age should be greater than 1")
+    @Max(value = 123, message = "Age must be less than 123")
     private byte age;
 
     @Column(unique = true)
-    @NotEmpty
+    @NotEmpty(message = "Email should not be empty!")
     private String email;
 
     @Column(unique = true)
-    @NotEmpty
-    @Size(min = 3)
+    @NotEmpty(message = "Password should not be empty!")
+    @Size(min = 3, message = "Password should be at least 3 characters")
     private String password;
 
-    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "users_roles", joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private List<Role> roles;
 

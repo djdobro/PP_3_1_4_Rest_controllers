@@ -75,12 +75,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void delete(User user) {
-        User userFromDb = userRepository.findByUsername(user.getUsername());
-        if (userFromDb == null) {
-            throw new EntityNotFoundException("Пользователь не найден");
-        }
-        userRepository.delete(userFromDb);
+    public void delete(Long id) {
+        userRepository.deleteById(id);
     }
 
 }
