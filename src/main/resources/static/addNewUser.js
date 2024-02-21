@@ -31,7 +31,7 @@ async function createUser() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ name, lastname, age, email, password, roles: listRoles })
+            body: JSON.stringify({name, lastname, age, email, password, roles: listRoles})
         });
         const result = await res.json();
         addUser(result);

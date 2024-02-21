@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
+import ru.kata.spring.boot_security.demo.services.RoleServiceImpl;
 import ru.kata.spring.boot_security.demo.services.UserServiceImpl;
 
 import javax.validation.Valid;
@@ -17,18 +18,18 @@ import java.util.List;
 @RequestMapping("/api")
 public class RestApiController {
 
-    private final UserServiceImpl userService;
-    private final RoleRepository roleRepository;
+    private final UserServiceImpl userServiceImpl;
+    private final RoleServiceImpl roleServiceImpl;
 
     @Autowired
-    public RestApiController(UserServiceImpl userService, RoleRepository roleRepository) {
-        this.userService = userService;
-        this.roleRepository = roleRepository;
+    public RestApiController(UserServiceImpl userServiceImpl, RoleServiceImpl roleServiceImpl) {
+        this.userServiceImpl = userServiceImpl;
+        this.roleServiceImpl = roleServiceImpl;
     }
 
-    @GetMapping()
-    public ResponseEntity<List<User>> printAllUsers () {
-        List<User> allUsers = userService.allUsers();
+    @GetMapping
+    public ResponseEntity<List<User>> printAllUsers() {
+        List<User> allUsers = userServiceImpl.allUsers();
         if (allUsers.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
@@ -36,41 +37,41 @@ public class RestApiController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> printUser (@PathVariable Long id) {
-        User user = userService.getById(id);
+    public ResponseEntity<User> printUser(@PathVariable Long id) {
+        User user = userServiceImpl.getById(id);
         return ResponseEntity.ok(user);
     }
 
     @GetMapping("/roles")
     public ResponseEntity<List<Role>> printAllRoles() {
-        List<Role> allRoles = roleRepository.findAll();
+        List<Role> allRoles = roleServiceImpl.getAllRoles();
         if (allRoles.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(allRoles);
     }
 
-    @PostMapping()
-    public ResponseEntity<User> addNewUser (@RequestBody @Valid User user, BindingResult bindingResult) {
+    @PostMapping
+    public ResponseEntity<User> addNewUser(@RequestBody @Valid User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().build();
         }
-        userService.save(user);
+        userServiceImpl.save(user);
         return ResponseEntity.ok(user);
     }
 
-    @PutMapping()
+    @PutMapping
     public ResponseEntity<User> updateUser(@RequestBody @Valid User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().build();
         }
-        userService.update(user);
+        userServiceImpl.update(user);
         return ResponseEntity.ok(user);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<User> deleteUser (@PathVariable Long id) {
-        userService.delete(id);
+    public ResponseEntity<User> deleteUser(@PathVariable Long id) {
+        userServiceImpl.delete(id);
         return ResponseEntity.noContent().build();
     }
 }
